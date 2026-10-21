@@ -10,9 +10,9 @@ What the user sees, and what the app does, when the result of a claim request is
 If we don’t know whether a claim went through, the app sends the same request again with the same key. The server sees the same key and never creates a second claim. The user sees “Confirming…”, and if that still fails, a “Check again” button. They can’t start a new claim until this one is sorted out. A simple “Try again” button alone wasn’t enough: the user could leave, claim again, and get paid twice.
 
 Working with AI. Describe three moments and point to where each one is in ai-logs/:
-a prompt that did not get you what you wanted, and how you changed it
-a time AI output was wrong or risky, and how you found out
-a time you disagreed with the AI or rejected a suggestion, and why
+Prompt that didn’t work. Refresh came out buggy: the timer started at 5, and double taps were possible. I re-asked with exact rules: disable the button, show a spinner, reset the timer. (ai-logs/claim-session)
+AI was wrong. The claim form read “1,234” as 1.234, so a user could claim 1000× less. I caught it in review and made such input rejected. (ai-logs/claim-session)
+I disagreed. The AI recommended option B for the balance after a claim. I took B but changed it: failed claims are skipped, completed ones aren’t counted as claiming. (ai-logs/claim-session)
 
 Not done / known issues. Say what is missing or wrong and what you would do next.
 Refresh logic may be improved for better UX
