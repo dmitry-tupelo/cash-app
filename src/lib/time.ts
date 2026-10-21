@@ -12,3 +12,13 @@ export function formatAge(ms: number): string {
 export function formatTime(ms: number): string {
   return new Date(ms).toLocaleTimeString();
 }
+
+/** Short date and time in the user's locale, e.g. "Oct 21, 10:42". */
+export function formatDateTime(ms: number): string {
+  return new Date(ms).toLocaleString(undefined, {
+    month: 'short',
+    day: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
+  });
+}

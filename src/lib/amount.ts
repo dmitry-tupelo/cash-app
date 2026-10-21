@@ -50,10 +50,12 @@ export function formatAmount(units: bigint, decimals: number): string {
   return groupThousands(integer) + (fraction ? '.' + fraction : '');
 }
 
-/** Display form of an already validated decimal string from the API ("1234.5" -> "1,234.5"). */
+/** Display form of an already validated, possibly signed decimal string ("-1234.5" -> "-1,234.5"). */
 export function formatDecimalString(input: string): string {
-  const parsed = parseDecimal(input);
-  return parsed ? formatAmount(parsed.value, parsed.scale) : input;
+  const negative = input.startsWith('-');
+  const parsed = parseDecimal(negative ? input.slice(1) : input);
+  if (!parsed) return input;
+  return formatAmount(negative ? -parsed.value : parsed.value, parsed.scale);
 }
 
 export function usdValue(units: bigint, decimals: number, usdPrice: Decimal): Decimal {

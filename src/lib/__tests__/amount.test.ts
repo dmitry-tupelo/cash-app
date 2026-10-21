@@ -69,6 +69,7 @@ describe('toAmountString and formatAmount', () => {
     expect(formatAmount(123n, 0)).toBe('123');
     expect(formatAmount(-1_234_500_000n, 6)).toBe('-1,234.5');
     expect(formatDecimalString('1234.5')).toBe('1,234.5');
+    expect(formatDecimalString('-1234.5')).toBe('-1,234.5'); // signed activity amounts
   });
 });
 
