@@ -14,6 +14,10 @@ export const Colors = {
     backgroundElement: '#F0F0F3',
     backgroundSelected: '#E0E1E6',
     textSecondary: '#60646C',
+    tint: '#208AEF',
+    onTint: '#ffffff',
+    danger: '#C62828',
+    warning: '#A15C00',
   },
   dark: {
     text: '#ffffff',
@@ -21,6 +25,10 @@ export const Colors = {
     backgroundElement: '#212225',
     backgroundSelected: '#2E3135',
     textSecondary: '#B0B4BA',
+    tint: '#4DA3F5',
+    onTint: '#ffffff',
+    danger: '#FF6B6B',
+    warning: '#F5A623',
   },
 } as const;
 
@@ -61,5 +69,5 @@ export const Spacing = {
   six: 64,
 } as const;
 
-export const BottomTabInset = Platform.select({ ios: 50, android: 80 }) ?? 0;
-export const MaxContentWidth = 800;
+/** The app is designed for a ~390px phone screen; wider screens get a centered column. */
+export const MaxContentWidth = 480;
