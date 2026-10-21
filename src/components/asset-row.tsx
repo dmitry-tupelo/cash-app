@@ -1,4 +1,4 @@
-import { StyleSheet, View } from 'react-native';
+import { Pressable, StyleSheet, View } from 'react-native';
 
 import type { AssetBalance } from '@/api/balances';
 import { ThemedText } from '@/components/themed-text';
@@ -7,21 +7,33 @@ import { Spacing } from '@/constants/theme';
 import { formatAmount, formatUsd } from '@/lib/amount';
 import { availableUsd } from '@/lib/totals';
 
-export function AssetRow({ item }: { item: AssetBalance }) {
+/** One asset's balances; tapping it opens the claim form for that asset. */
+export function AssetRow({ item, onPress }: { item: AssetBalance; onPress: () => void }) {
   return (
-    <ThemedView type="backgroundElement" style={styles.card}>
-      <View style={styles.line}>
-        <ThemedText type="smallBold">{item.asset}</ThemedText>
-        <View style={styles.amounts}>
-          <ThemedText style={styles.number}>{formatAmount(item.available, item.decimals)}</ThemedText>
-          <ThemedText type="small" themeColor="textSecondary" style={styles.number}>
-            {formatUsd(availableUsd(item))}
-          </ThemedText>
+    <Pressable
+      accessibilityRole="button"
+      accessibilityHint={`Claim ${item.asset}`}
+      onPress={onPress}
+      style={({ pressed }) => pressed && styles.pressed}>
+      <ThemedView type="backgroundElement" style={styles.card}>
+        <View style={styles.line}>
+          <View>
+            <ThemedText type="smallBold">{item.asset}</ThemedText>
+            <ThemedText type="small" themeColor="tint">
+              Claim ›
+            </ThemedText>
+          </View>
+          <View style={styles.amounts}>
+            <ThemedText style={styles.number}>{formatAmount(item.available, item.decimals)}</ThemedText>
+            <ThemedText type="small" themeColor="textSecondary" style={styles.number}>
+              {formatUsd(availableUsd(item))}
+            </ThemedText>
+          </View>
         </View>
-      </View>
-      {item.pending > 0n && <DetailLine label="Pending" units={item.pending} item={item} />}
-      {item.claiming > 0n && <DetailLine label="Claiming" units={item.claiming} item={item} />}
-    </ThemedView>
+        {item.pending > 0n && <DetailLine label="Pending" units={item.pending} item={item} />}
+        {item.claiming > 0n && <DetailLine label="Claiming" units={item.claiming} item={item} />}
+      </ThemedView>
+    </Pressable>
   );
 }
 
@@ -58,5 +70,8 @@ const styles = StyleSheet.create({
     fontVariant: ['tabular-nums'],
     textAlign: 'right',
     flexShrink: 1,
+  },
+  pressed: {
+    opacity: 0.7,
   },
 });

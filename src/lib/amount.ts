@@ -50,6 +50,12 @@ export function formatAmount(units: bigint, decimals: number): string {
   return groupThousands(integer) + (fraction ? '.' + fraction : '');
 }
 
+/** Display form of an already validated decimal string from the API ("1234.5" -> "1,234.5"). */
+export function formatDecimalString(input: string): string {
+  const parsed = parseDecimal(input);
+  return parsed ? formatAmount(parsed.value, parsed.scale) : input;
+}
+
 export function usdValue(units: bigint, decimals: number, usdPrice: Decimal): Decimal {
   return { value: units * usdPrice.value, scale: decimals + usdPrice.scale };
 }

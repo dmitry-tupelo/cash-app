@@ -3,6 +3,7 @@ import { DarkTheme, DefaultTheme, Stack, ThemeProvider, useRouter } from 'expo-r
 import { Pressable, StyleSheet } from 'react-native';
 
 import { TokenProvider, useToken } from '@/auth/token-context';
+import { ClaimsProvider } from '@/claims/claims-context';
 import { ThemedText } from '@/components/themed-text';
 import { Colors, Spacing } from '@/constants/theme';
 import { useColorScheme } from '@/hooks/use-color-scheme';
@@ -27,7 +28,9 @@ export default function RootLayout() {
     <ThemeProvider value={navigationTheme}>
       <QueryClientProvider client={queryClient}>
         <TokenProvider>
-          <RootStack />
+          <ClaimsProvider>
+            <RootStack />
+          </ClaimsProvider>
         </TokenProvider>
       </QueryClientProvider>
     </ThemeProvider>
@@ -47,6 +50,8 @@ function RootStack() {
           name="index"
           options={{ title: 'CashMine', headerRight: () => <SettingsButton /> }}
         />
+        <Stack.Screen name="claim" options={{ title: 'Claim payback' }} />
+        <Stack.Screen name="claims/[id]" options={{ title: 'Claim status' }} />
         <Stack.Screen name="settings" options={{ title: 'API token' }} />
       </Stack.Protected>
       <Stack.Protected guard={!hasToken}>
