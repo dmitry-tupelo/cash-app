@@ -15,5 +15,5 @@ a time AI output was wrong or risky, and how you found out
 a time you disagreed with the AI or rejected a suggestion, and why
 
 Not done / known issues. Say what is missing or wrong and what you would do next.
-May be improved refresh logic in case of UX
+Refresh logic may be improved for better UX
 Amount input rejects anything that looks like thousands grouping ("1,234", "1,234.5") instead of guessing, because the app itself displays 1,234 as one thousand. Side effect: on a phone whose decimal keypad only has a comma, an amount like 1.234 (1–3 digit integer part, exactly 3 decimals) can't be typed; Max or a trailing zero ("1,2340") works around it. Next: a decimal-separator hint by the field, or use the device locale to decide what a comma means.
