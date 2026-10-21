@@ -7,6 +7,7 @@ Balance after a claim. The snapshot updates every 15s, so right after a claim it
 
 
 What the user sees, and what the app does, when the result of a claim request is unknown, for example after a timeout.
+If we don’t know whether a claim went through, the app sends the same request again with the same key. The server sees the same key and never creates a second claim. The user sees “Confirming…”, and if that still fails, a “Check again” button. They can’t start a new claim until this one is sorted out. A simple “Try again” button alone wasn’t enough: the user could leave, claim again, and get paid twice.
 
 Working with AI. Describe three moments and point to where each one is in ai-logs/:
 a prompt that did not get you what you wanted, and how you changed it
@@ -15,3 +16,4 @@ a time you disagreed with the AI or rejected a suggestion, and why
 
 Not done / known issues. Say what is missing or wrong and what you would do next.
 May be improved refresh logic in case of UX
+Amount input rejects anything that looks like thousands grouping ("1,234", "1,234.5") instead of guessing, because the app itself displays 1,234 as one thousand. Side effect: on a phone whose decimal keypad only has a comma, an amount like 1.234 (1–3 digit integer part, exactly 3 decimals) can't be typed; Max or a trailing zero ("1,2340") works around it. Next: a decimal-separator hint by the field, or use the device locale to decide what a comma means.
